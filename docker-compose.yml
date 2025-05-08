@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/linli1221/deltaforce:latest
+    container_name: deltaforce-app
+    restart: unless-stopped
+    volumes:
+      - ./runtime:/var/www/html/runtime
+    networks:
+      - deltaforce-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: deltaforce-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+    networks:
+      - deltaforce-network
+
+networks:
+  deltaforce-network:
+    driver: bridge

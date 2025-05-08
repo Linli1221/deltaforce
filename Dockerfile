@@ -37,7 +37,7 @@ RUN mkdir -p runtime/storage \
     && chmod -R 755 think
 
 # 暴露端口 (PHP-FPM 默认监听 9000)
-EXPOSE 9000
+EXPOSE 8000
 
 # 启动 PHP-FPM
 CMD ["php-fpm"]
