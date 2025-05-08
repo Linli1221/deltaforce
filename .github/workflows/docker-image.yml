@@ -16,19 +16,7 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Log in to Docker Hub # 如果您使用其他镜像仓库，请修改此步骤
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }} # 在 GitHub Secrets 中设置 DOCKERHUB_USERNAME
-        password: ${{ secrets.DOCKERHUB_TOKEN }}    # 在 GitHub Secrets 中设置 DOCKERHUB_TOKEN
 
-    # 如果您使用 GitHub Container Registry (GHCR)，请取消注释以下步骤并注释掉上面的 Docker Hub 登录步骤
-    # - name: Log in to GitHub Container Registry
-    #   uses: docker/login-action@v2
-    #   with:
-    #     registry: ghcr.io
-    #     username: ${{ github.repository_owner }}
-    #     password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
@@ -36,8 +24,6 @@ jobs:
         context: .
         file: ./Dockerfile
         push: ${{ github.event_name != 'pull_request' }} # 仅在非 PR 事件时推送
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/your-image-name:latest # 修改为您的 Docker Hub 用户名和镜像名
-        # 如果使用 GHCR，请修改 tags 如下:
-        # tags: ghcr.io/${{ github.repository_owner }}/your-image-name:latest
+        tags: deltaforce:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
