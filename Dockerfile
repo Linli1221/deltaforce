@@ -31,10 +31,13 @@ COPY composer.json composer.lock* ./
 # --optimize-autoloader: 优化自动加载器
 # --no-interaction: 非交互模式
 # --ignore-platform-reqs: 可以忽略平台需求，但在生产环境中请确保环境一致
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 # 复制应用程序代码到工作目录
 COPY . .
+
+# Generate autoloader and run post-autoload-dump scripts
+RUN composer dump-autoload --optimize --no-dev
 
 # ThinkPHP 项目通常需要 runtime 目录有写权限
 # 根据您的 Web 服务器配置，可能需要更改用户和组
