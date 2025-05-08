@@ -41,7 +41,8 @@ RUN composer dump-autoload --optimize --no-dev
 
 # ThinkPHP 项目通常需要 runtime 目录有写权限
 # 根据您的 Web 服务器配置，可能需要更改用户和组
-RUN chown -R www-data:www-data runtime storage bootstrap/cache \
+RUN mkdir -p runtime storage bootstrap/cache \
+    && chown -R www-data:www-data runtime storage bootstrap/cache \
     && chmod -R 775 runtime storage bootstrap/cache
 
 # 暴露端口 (PHP-FPM 默认监听 9000)
