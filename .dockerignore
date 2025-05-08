@@ -1,0 +1,38 @@
+# Git
+.git
+.github
+.gitignore
+
+# 开发环境配置
+.env
+.env.*
+!.env.example
+.vscode
+.idea
+*.DS_Store
+Thumbs.db
+
+# 编译文件
+*.log
+*.swp
+*.bak
+
+# 测试目录
+/tests
+
+# CI配置
+.travis.yml
+
+# 其他不需要的文件
+README.md
+LICENSE
+*.md
+/vendor/phpunit
+/.settings
+/.buildpath
+/.project
+
+# Docker相关文件
+Dockerfile
+docker-compose.yml
+.dockerignore
